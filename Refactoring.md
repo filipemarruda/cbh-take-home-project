@@ -9,3 +9,15 @@ You've been asked to refactor the function `deterministicPartitionKey` in [`dpk.
 You will be graded on the exhaustiveness and quality of your unit tests, the depth of your refactor, and the level of insight into your thought process provided by the written explanation.
 
 ## Your Explanation Here
+The first thing I did was to idenfity what is the intent and how works the actual code.
+Some points that I identified:
+- The function should return a string with the deterministic partition key
+- The function should return a string with the max length of MAX_PARTITION_KEY_LENGTH
+- The function should return TRIVIAL_PARTITION_KEY if the input event is an empty string or null
+- The function should return a hash of the input event if the input event does not have a property called `partitionKey` or if this property exists but is an empty string or null
+- If the input event has a property called `partitionKey` the function should:
+  - ensure that the partitionKey is a string (if not, it should be converted to a string)
+  - ensure that the partitionKey is not longer than MAX_PARTITION_KEY_LENGTH (if it is, should return a hash of it)
+  - return the partitionKey
+After that I wrote the unit tests to cover the existing functionality and ensure that my refactor doesn't break it.
+Then I started to refactor the function to be as "clean" and "readable" as possible (including the unit tests).
